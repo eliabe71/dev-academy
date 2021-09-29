@@ -35,6 +35,7 @@ void userModel::registerInTheDatabase(QString email, QString name, QString senha
      query.bindValue(":email",email);
      query.bindValue(":senha",senha);
      if(query.exec()){
+        qDebug()<< "entrou";
         query.prepare("SELECT id FROM User Where email = :email ");
         query.bindValue(":email", email);
         query.exec();
@@ -51,10 +52,11 @@ void userModel::registerInTheDatabase(QString email, QString name, QString senha
 bool userModel::existsInDataBase(QString email)
 {
      QSqlQuery query(db->database());
-     query.prepare("SELECT COUNT(*) FROM User WHERE :email");
+     query.prepare("SELECT COUNT(*) FROM User WHERE email=:email");
      query.bindValue(":email",email);
      query.exec();
      query.first();
+     qDebug()<< query.value(0).toString();
      return query.value(0).toBool();
 }
 

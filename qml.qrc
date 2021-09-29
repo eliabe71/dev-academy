@@ -3,9 +3,13 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>singup.qml</file>
+        <file>login.qml</file>
+        <file>home.qml</file>
+        <file>MyToolbar.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>iconinit.png</file>
         <file>cadrasto.png</file>
+        <file>return.png</file>
     </qresource>
 </RCC>

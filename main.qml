@@ -13,18 +13,33 @@ ApplicationWindow {
 
     Component.onCompleted:{
 
-        stack.push('qrc:/singup.qml', {'name':'singup' , 'stack' : stack })
+        stack.push('qrc:/login.qml', { 'stack' : stack })
         userModel.cancel()
     }
-
+    header: MyToolbar{
+        id: toolbar
+        stack: stack
+    }
+    footer: ToolBar{
+        id : toolbarFooter
+    }
     StackView {
         id:stack
         visible: true
         anchors.fill : parent
         onCurrentItemChanged: {
-            if(stack.currentItem.name =="singup" && stack.currentItem.popstack){
-                stack.clear()
+            if(currentItem.name == "login" ){
+                toolbar.visible = false
+                toolbarFooter.visible = false
             }
-        }
+            if(currentItem.name == "singup" ){
+                toolbar.visible = false
+                toolbarFooter.visible = false
+            }
+            if(currentItem.name == "homeView" ){
+                toolbar.visible = true
+                toolbarFooter.visible = true
+            }
+         }
     }
 }
