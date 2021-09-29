@@ -2,9 +2,10 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>singup.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>iconinit.png</file>
+        <file>cadrasto.png</file>
     </qresource>
-    
 </RCC>

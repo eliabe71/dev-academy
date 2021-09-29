@@ -1,9 +1,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <database.h>
 #include <QLocale>
 #include <QTranslator>
-
+#include "usermodel.h"
+#include <QQmlContext>
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -11,7 +12,8 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-
+    Database db;
+    userModel *usermodel = new userModel(nullptr,&db);
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
@@ -22,7 +24,13 @@ int main(int argc, char *argv[])
         }
     }
 
+    app.setOrganizationName("Some Company");
+    app.setOrganizationDomain("somecompany.com");
+    app.setApplicationName("Amazing Application");
+
+
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("userModel", usermodel);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

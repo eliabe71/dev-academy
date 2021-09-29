@@ -7,7 +7,24 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
-   Material.theme: Material.dark
 
+
+    Material.theme: Material.dark
+
+    Component.onCompleted:{
+
+        stack.push('qrc:/singup.qml', {'name':'singup' , 'stack' : stack })
+        userModel.cancel()
+    }
+
+    StackView {
+        id:stack
+        visible: true
+        anchors.fill : parent
+        onCurrentItemChanged: {
+            if(stack.currentItem.name =="singup" && stack.currentItem.popstack){
+                stack.clear()
+            }
+        }
+    }
 }
