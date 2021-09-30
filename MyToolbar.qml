@@ -10,6 +10,7 @@ ToolBar {
     property  string  buttonlistsrc : "qrc:/icons/view-grid-rows.png"
     signal listbuttonClicked();
     signal buttonSaved();
+    signal trashButtonClicked();
     function offButtons(){
         search.visible = false
         magnify.visible = false
@@ -20,6 +21,9 @@ ToolBar {
         savebutton.visible = false
         magnify.visible = true
         gridorlist.visible = true
+    }
+    function setTrashButton(on){
+        excluir.visible = on
     }
     RowLayout{
 //        anchors.verticalCenter: root.verticalCenter
@@ -48,12 +52,38 @@ ToolBar {
            placeholderText: "Buscar"
 
          }
-        ToolButton {
-            id:savebutton
-            icon.source: "/icons/save.png"
-            visible:false
-            text: "Salvar Nota"
-             onClicked: stack.pop()
+//        ToolButton {
+//            id:savebutton
+//            icon.source: "/icons/save.png"
+//            visible:false
+//            text: "Salvar Nota"
+//             onClicked: stack.pop()
+//        }
+        Image {
+            id: excluir
+            visible: false
+            source: "/icons/trash.png"
+            sourceSize.width: 30
+            sourceSize.height: 30
+            MouseArea{
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: trashButtonClicked()
+
+            }
+        }
+        Image {
+            id: savebutton
+            Layout.rightMargin: 8
+            source: "/icons/save.png"
+            sourceSize.width: 30
+            sourceSize.height: 30
+            MouseArea{
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+
+                onClicked: stack.pop()
+            }
         }
         ToolButton{
 

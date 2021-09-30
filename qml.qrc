@@ -19,5 +19,7 @@
         <file>view-grid-outline.png</file>
         <file>plusbutton.png</file>
          <file>save.png</file>
+         <file>pallete.png</file>
+         <file>trash.png</file>
     </qresource>
 </RCC>

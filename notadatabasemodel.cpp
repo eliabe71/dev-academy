@@ -68,6 +68,16 @@ bool NotaDatabaseModel::updateGrade(int id, QString desc, QString titulo, QStrin
     return r;
 }
 
+bool NotaDatabaseModel::deleteLine(int id)
+{
+    QSqlQuery updateQuery(QSqlTableModel::database());
+    updateQuery.prepare("Delete From Nota Where id = :id");
+    updateQuery.bindValue(":id", id);
+    bool r = updateQuery.exec();
+    select();
+    return r;
+}
+
 
 void registerType() {
     qmlRegisterType<NotaDatabaseModel>("Models", 1, 0, "NotaDatabaseModel");

@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.12
 import Models 1.0
 import QtQuick.Layouts 1.15
+import QtQuick.Dialogs 1.3
 
 ApplicationWindow {
     width: 640
@@ -14,7 +15,7 @@ ApplicationWindow {
     Material.theme: Material.dark
 
     Component.onCompleted:{
-
+        console.log("hm" + Material.dark)
         stack.push('qrc:/login.qml', { 'stack' : stack })
         userModel.cancel()
     }
@@ -25,16 +26,57 @@ ApplicationWindow {
             stack.currentItem.alterGrid()
 
         }
+        onTrashButtonClicked:{
+            if(stack.currentItem.name == "addnote"){
+                stack.currentItem.eliminated = true
+                stack.pop()
+            }
+        }
     }
+    ColorDialog{
+        id:colorSet
+        onColorChanged: {
+            stack.currentItem.colorBackground()
+        }
+
+    }
+
     footer: ToolBar{
+        function onButtonsHome(){
+           colorsetButton.visible = false
+           plusButton.visible = true
+        }
+        function onButtonsadd(){
+           colorsetButton.visible = true
+           plusButton.visible = false
+        }
         id : toolbarFooter
+
         RowLayout{
             anchors.fill: parent
+
+
+            Image {
+                Layout.leftMargin: 8
+                id: colorsetButton
+                source: "/icons/pallete.png"
+                sourceSize.width: 35
+                sourceSize.height: 35
+                MouseArea{
+                    anchors.fill: parent
+                     cursorShape: Qt.PointingHandCursor
+                    onClicked: colorSet.open()
+                }
+
+            }
             ToolButton{
+                id :plusButton
+                visible: true
                 Layout.alignment: Qt.AlignRight
                 icon.source: "/icons/plusbutton.png"
+
                 onClicked: {
-                    console.log("aqui")
+
 
                     stack.push('qrc:/addnote.qml', { 'modelNota':notadata, 'userid' :userModel.getId() ,'stack' : stack })
                 }
@@ -53,21 +95,28 @@ ApplicationWindow {
             if(currentItem.name == "login" ){
                 toolbar.visible = false
                 toolbarFooter.visible = false
+                 toolbar.setTrashButton(false)
             }
             if(currentItem.name == "singup" ){
                 toolbar.visible = false
                 toolbarFooter.visible = false
+                 toolbar.setTrashButton(false)
             }
             if(currentItem.name == "homeView" ){
                 toolbar.visible = true
                 currentItem.notadata= notadata
                 toolbarFooter.visible = true
                 toolbar.onButtons()
-
+                toolbarFooter.onButtonsHome()
+                toolbar.setTrashButton(false)
             }
             if(currentItem.name == "addnote"){
                 toolbar.offButtons()
-//                currentItem.toolbar = toolbar
+                currentItem.colorD = colorSet
+                toolbarFooter.onButtonsadd()
+                if(currentItem.idNote){
+                    toolbar.setTrashButton(true)
+                }
             }
          }
     }

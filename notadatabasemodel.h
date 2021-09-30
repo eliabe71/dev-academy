@@ -20,7 +20,7 @@ public:
     QHash<int, QByteArray> roleNames() const override;
     Q_INVOKABLE bool registerGrade(QString desc, QString titulo,QString date,QString cor,int user_id);
     Q_INVOKABLE bool updateGrade(int id ,QString desc, QString titulo,QString date,QString cor,int user_id);
-
+    Q_INVOKABLE bool deleteLine(int id);
 };
 
 #endif // NOTADATABASEMODEL_H
