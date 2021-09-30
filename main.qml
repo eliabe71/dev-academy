@@ -2,6 +2,8 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.12
+import Models 1.0
+import QtQuick.Layouts 1.15
 
 ApplicationWindow {
     width: 640
@@ -19,10 +21,28 @@ ApplicationWindow {
     header: MyToolbar{
         id: toolbar
         stack: stack
+        onListbuttonClicked:{
+            stack.currentItem.alterGrid()
+        }
     }
     footer: ToolBar{
         id : toolbarFooter
+        RowLayout{
+            anchors.fill: parent
+            ToolButton{
+                Layout.alignment: Qt.AlignRight
+                icon.source: "/icons/plusbutton.png"
+                onClicked: {
+                    console.log("aqui")
+
+                    stack.push('qrc:/addnote.qml', { 'stack' : stack })
+                }
+            }
+
+        }
+
     }
+
     StackView {
         id:stack
         visible: true
@@ -38,6 +58,7 @@ ApplicationWindow {
             }
             if(currentItem.name == "homeView" ){
                 toolbar.visible = true
+                //currentItem.notaBase = notadata
                 toolbarFooter.visible = true
             }
          }

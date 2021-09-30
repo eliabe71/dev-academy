@@ -54,6 +54,7 @@ Item {
                 if(fruitModel.get(index).name == "Apple"){
                     console.log("Cym" + list.count)
                     cont++
+                    if()
                     return false
                 }
                 else{

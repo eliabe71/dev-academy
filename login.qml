@@ -34,6 +34,7 @@ Item {
 
             TextField{
                 id:email
+                text: "eliabesantos1106@gmail.com"
                 Layout.fillWidth : true
                 placeholderText: "Email"
 

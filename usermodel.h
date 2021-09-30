@@ -21,11 +21,12 @@ public:
     Q_PROPERTY(QString email READ getEmail WRITE setEmail NOTIFY emailChanged)
     QString getName();
     QString getEmail();
-    void setEmail(QString email);
+    Q_INVOKABLE void setEmail(QString email);
     void setName(QString name);
     Q_INVOKABLE void registerInTheDatabase(QString email , QString name, QString senha);
     Q_INVOKABLE bool existsInDataBase(QString);
     Q_INVOKABLE void cancel();
+    ~userModel();
 signals :
         void nameChanged();
         void emailChanged();

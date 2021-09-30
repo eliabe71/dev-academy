@@ -9,10 +9,17 @@ QString userModel::getEmail()
 {
     return this->email;
 }
-
+/// Qunado Der o Login
 void userModel::setEmail(QString email)
 {   if(! this->email.compare(email)){
         this->email = email;
+        QSqlQuery query(db->database());
+        query.prepare("SELECT id, name FROM User WHERE email=:email");
+        query.bindValue(":email",email);
+        query.exec();
+        query.first();
+        this->id = query.value(0).toString();
+        setName(query.value(1).toString());
         emit emailChanged();
     }
 
@@ -34,17 +41,7 @@ void userModel::registerInTheDatabase(QString email, QString name, QString senha
      query.bindValue(":name",name);
      query.bindValue(":email",email);
      query.bindValue(":senha",senha);
-     if(query.exec()){
-        qDebug()<< "entrou";
-        query.prepare("SELECT id FROM User Where email = :email ");
-        query.bindValue(":email", email);
-        query.exec();
-        query.first();
-        this->id = query.value(0).toString();
-        this->name = name;
-        this->senha = senha;
-        this->email = email;
-     }
+     query.exec();
 
 }
 
@@ -63,6 +60,11 @@ bool userModel::existsInDataBase(QString email)
 void userModel::cancel()
 {
     qDebug()<<"Sorte";
+}
+
+userModel::~userModel()
+{
+    delete db;
 }
 
 userModel::userModel(QObject *parent , Database *database ): QObject(parent)
