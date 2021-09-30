@@ -8,7 +8,19 @@ ToolBar {
     property  string magnifysrc : "qrc:/icons/magnify.png"
     property  string  buttongridsrc : "qrc:/icons/view-grid-outline.png"
     property  string  buttonlistsrc : "qrc:/icons/view-grid-rows.png"
-    signal listbuttonClicked()
+    signal listbuttonClicked();
+    signal buttonSaved();
+    function offButtons(){
+        search.visible = false
+        magnify.visible = false
+        savebutton.visible = true
+        gridorlist.visible = false
+    }
+    function onButtons(){
+        savebutton.visible = false
+        magnify.visible = true
+        gridorlist.visible = true
+    }
     RowLayout{
 //        anchors.verticalCenter: root.verticalCenter
         spacing: 10
@@ -21,6 +33,7 @@ ToolBar {
             id : buttonreturn
            icon.source: "/icons/return.png"
            onClicked: stack.pop()
+
         }
         Rectangle{
             id:fillArea
@@ -35,6 +48,13 @@ ToolBar {
            placeholderText: "Buscar"
 
          }
+        ToolButton {
+            id:savebutton
+            icon.source: "/icons/save.png"
+            visible:false
+            text: "Salvar Nota"
+             onClicked: stack.pop()
+        }
         ToolButton{
 
              id: magnify

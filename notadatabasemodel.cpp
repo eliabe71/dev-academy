@@ -1,7 +1,7 @@
 #include "notadatabasemodel.h"
 
 NotaDatabaseModel::NotaDatabaseModel(QObject *parent, Database *database):
-    QSqlTableModel(parent, *database),db(database)
+    QSqlTableModel(parent, database->database()),db(database)
 {
     setTable("Nota");
     this->configureRoles();
@@ -44,7 +44,7 @@ bool NotaDatabaseModel::registerGrade(QString desc, QString titulo, QString date
     query.bindValue(":desc", desc);
     query.bindValue(":date", date);
     query.bindValue(":user_id", user_id);
-    query.bindValue(":cor", user_id);
+    query.bindValue(":cor", cor);
     bool r =  query.exec();
     select();
     return r;
@@ -67,6 +67,8 @@ bool NotaDatabaseModel::updateGrade(int id, QString desc, QString titulo, QStrin
     select();
     return r;
 }
+
+
 void registerType() {
     qmlRegisterType<NotaDatabaseModel>("Models", 1, 0, "NotaDatabaseModel");
 }

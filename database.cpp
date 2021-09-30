@@ -48,7 +48,7 @@ bool Database::sqlScript(QString path)
 
 Database::Database()
 {
-    //m_dataBase = new QSqlDatabase;
+
     openDatabase();
 }
 

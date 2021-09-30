@@ -18,5 +18,6 @@
         <file>view-grid-rows.png</file>
         <file>view-grid-outline.png</file>
         <file>plusbutton.png</file>
+         <file>save.png</file>
     </qresource>
 </RCC>

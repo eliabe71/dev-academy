@@ -62,6 +62,11 @@ void userModel::cancel()
     qDebug()<<"Sorte";
 }
 
+int userModel::getId()
+{
+    return id.toInt();
+}
+
 userModel::~userModel()
 {
     delete db;

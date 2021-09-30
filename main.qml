@@ -23,6 +23,7 @@ ApplicationWindow {
         stack: stack
         onListbuttonClicked:{
             stack.currentItem.alterGrid()
+
         }
     }
     footer: ToolBar{
@@ -35,14 +36,15 @@ ApplicationWindow {
                 onClicked: {
                     console.log("aqui")
 
-                    stack.push('qrc:/addnote.qml', { 'stack' : stack })
+                    stack.push('qrc:/addnote.qml', { 'modelNota':notadata, 'userid' :userModel.getId() ,'stack' : stack })
                 }
             }
 
         }
-
     }
-
+    NotaDatabaseModel{
+        id: notadata
+    }
     StackView {
         id:stack
         visible: true
@@ -58,8 +60,14 @@ ApplicationWindow {
             }
             if(currentItem.name == "homeView" ){
                 toolbar.visible = true
-                //currentItem.notaBase = notadata
+                currentItem.notadata= notadata
                 toolbarFooter.visible = true
+                toolbar.onButtons()
+
+            }
+            if(currentItem.name == "addnote"){
+                toolbar.offButtons()
+//                currentItem.toolbar = toolbar
             }
          }
     }

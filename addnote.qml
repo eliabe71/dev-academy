@@ -4,8 +4,17 @@ import QtQuick.Controls 2.0
 
 Item {
     property var stack
-    property  string name : "addnote"
+    property string name : "addnote"
+    property string titles
+    property string desc
+    property var idNote
+    property  var modelNota
+    property  int userid
     anchors.fill: parent
+    function fill(){
+        titles = title.text
+        desc = note.text
+    }
     ColumnLayout{
         spacing: 10
         anchors.fill :parent
@@ -32,5 +41,24 @@ Item {
             }
 
         }
-    }
+
+            Component.onDestruction: {
+                var currentDate = new Date()
+                var data = currentDate.toLocaleDateString(Qt.locale(), Locale.ShortFormat)
+                var hora = currentDate.toLocaleTimeString(Qt.locale(), Locale.ShortFormat)
+
+                if( idNote ){
+                    if(title.text && note.text)
+                        modelNota.updateGrade(idNote,note.text,title.text,data+' '+hora, "red", userid)
+
+                }else {
+                    if(title.text && note.text)
+                        modelNota.registerGrade(note.text,title.text,data+' '+hora,"red",userid);
+
+                }
+
+            }
+
+        }
+
 }

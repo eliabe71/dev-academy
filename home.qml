@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
+    property var notadata
     property string name : "homeView"
     property  var stack
     property  int index :0
@@ -14,25 +15,8 @@ Item {
         notegrid.visible = true
         list.visible = false
     }
-    NotaDatabaseModel{
-        id: notadata
-    }
-    ListModel {
-        id: fruitModel
 
-        ListElement {
-            name: "Apple"
-            cost: 2.45
-        }
-        ListElement {
-            name: "Orange"
-            cost: 3.25
-        }
-        ListElement {
-            name: "Banana"
-            cost: 1.95
-        }
-    }
+
     GridView{
         id: notegrid
         anchors.fill:  parent
@@ -40,7 +24,7 @@ Item {
             visible: true
         }
         visible: false
-        model: fruitModel
+        model: notadata
 
     }
     ListView{
@@ -48,19 +32,12 @@ Item {
         id:list
         visible:true
         anchors.fill: parent
-        model :fruitModel
+        model :notadata
+        ScrollBar.vertical: ScrollBar {
+            visible: true
+        }
         delegate: Rectangle{
-            function ff(){
-                if(fruitModel.get(index).name == "Apple"){
-                    console.log("Cym" + list.count)
-                    cont++
-                    return false
-                }
-                else{
-                    return true
-                }
-            }
-             visible: ff()
+
              height: 50
              color: "red"
             width:parent.width-20
