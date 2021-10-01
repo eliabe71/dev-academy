@@ -103,6 +103,7 @@ ToolBar {
                 else{
                     magnify.icon.source = magnifysrc
                     search.visible = false
+                    search.text=""
                     searchButtonClicked()
                 }
             }

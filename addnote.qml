@@ -77,10 +77,12 @@ Item {
                 }
                 if( idNote ){
                     if(title.text && note.text)
+                        console.log("Nota Atualizada Com Sucesso")
                         modelNota.updateGrade(idNote,note.text,title.text,data+' '+hora, back.color, userid)
 
                 }else {
                     if(title.text && note.text)
+                        console.log("Nota Cadrastada Com Sucesso")
                         modelNota.registerGrade(note.text,title.text,data+' '+hora,back.color,userid);
 
                 }

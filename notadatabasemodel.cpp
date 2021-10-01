@@ -56,7 +56,7 @@ bool NotaDatabaseModel::updateGrade(int id, QString desc, QString titulo, QStrin
     updateQuery.prepare(
                 "update Nota set titulo = :titulo, desc = :desc, cor = :cor, date = :date, user_id = :userid "
                 "where id = :id"
-        );
+                );
     updateQuery.bindValue(":id", id);
     updateQuery.bindValue(":titulo", titulo);
     updateQuery.bindValue(":desc", desc);

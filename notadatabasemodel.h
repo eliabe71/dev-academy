@@ -9,12 +9,12 @@ class NotaDatabaseModel : public QSqlTableModel
 {
     Q_OBJECT
 private :
-     QHash<int, QByteArray> myRoles;
-     Database *db;
+    QHash<int, QByteArray> myRoles;
+    Database *db;
 public:
     enum Roles{Id = Qt::UserRole+1,Titulo, Desc,Cor, Date};
     Q_ENUM(Roles)
-     explicit NotaDatabaseModel(QObject *parent = nullptr, Database *database = new Database());
+    explicit NotaDatabaseModel(QObject *parent = nullptr, Database *database = new Database());
     void configureRoles();
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;

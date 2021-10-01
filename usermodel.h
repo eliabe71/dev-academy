@@ -25,14 +25,13 @@ public:
     void setName(QString name);
     Q_INVOKABLE void registerInTheDatabase(QString email , QString name, QString senha);
     Q_INVOKABLE bool existsInDataBase(QString);
-    Q_INVOKABLE void cancel();
     Q_INVOKABLE int getId();
     ~userModel();
 signals :
-        void nameChanged();
-        void emailChanged();
-        void singUpcancel();
-//
+    void nameChanged();
+    void emailChanged();
+    void singUpcancel();
+    //
 
 };
 

@@ -17,7 +17,7 @@ ApplicationWindow {
     Component.onCompleted:{
 
         stack.push('qrc:/login.qml', { 'stack' : stack })
-        userModel.cancel()
+
     }
     header: MyToolbar{
         id: toolbar

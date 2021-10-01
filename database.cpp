@@ -2,22 +2,23 @@
 const static QString CONNECTION_NAME = "dev_adb";
 bool Database::openDatabase()
 {
-  QDir currentPath = QDir::currentPath();
-  QString path = currentPath.absolutePath() + "/" + CONNECTION_NAME+ ".db3";
-  bool driver =  QSqlDatabase::isDriverAvailable("QSQLITE");
+    QDir currentPath = QDir::currentPath();
+    QString path = currentPath.absolutePath() + "/" + CONNECTION_NAME+ ".db3";
+    bool driver =  QSqlDatabase::isDriverAvailable("QSQLITE");
 
-  if( conected()){
-      this->m_dataBase = QSqlDatabase::database(CONNECTION_NAME);
-   }
-   else if(driver){
-      this->m_dataBase = QSqlDatabase::addDatabase("QSQLITE", CONNECTION_NAME);
-   }
-   m_dataBase.setDatabaseName(path);
-   bool needCreated = currentPath.exists(path);
-   if(m_dataBase.open() && !needCreated){
+    if( conected()){
+        this->m_dataBase = QSqlDatabase::database(CONNECTION_NAME);
+    }
+    else if(driver){
+        this->m_dataBase = QSqlDatabase::addDatabase("QSQLITE", CONNECTION_NAME);
+    }
+    m_dataBase.setDatabaseName(path);
+    bool needCreated = currentPath.exists(path);
+    if(m_dataBase.open() && !needCreated){
         return sqlScript(":/init_db.sql");
-   }
-   return false;
+    }
+
+    return (needCreated) ? true: false;
 }
 
 bool Database::conected()
@@ -34,10 +35,10 @@ bool Database::sqlScript(QString path)
             for(QString query : querys){
                 if(query.trimmed().isEmpty() )
                     continue;
-                 if(m_dataBase.exec(query.trimmed()).lastError().isValid()) {
-                      qDebug()<<"Error Create Table Data Base";
-                      return false;
-                 }
+                if(m_dataBase.exec(query.trimmed()).lastError().isValid()) {
+                    qDebug()<<"Erro, Tabela Não Criadas No Banco de Dados";
+                    return false;
+                }
 
             }
             return true ;
@@ -49,7 +50,12 @@ bool Database::sqlScript(QString path)
 Database::Database()
 {
 
-    openDatabase();
+    if(openDatabase()){
+        qDebug()<< "Database Open";
+    }
+    else {
+        qDebug()<< "Error Database";
+    }
 }
 
 QSqlDatabase &Database::database()
