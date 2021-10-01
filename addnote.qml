@@ -27,37 +27,37 @@ Item {
         anchors.fill: parent
         color: "#303030"
 
-    ColumnLayout{
-        id : rootbackgroud
-        spacing: 10
-        anchors.fill :parent
+        ColumnLayout{
+            id : rootbackgroud
+            spacing: 10
+            anchors.fill :parent
 
 
-        TextField {
-            Layout.alignment: Qt.AlignCenter
-            Layout.fillWidth:  true
-            id:title
-            placeholderText: "Titulo"
-
-        }
-        Flickable {
-            id:flickable
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            flickableDirection: Flickable.VerticalFlick
-
-            TextArea.flickable: TextArea {
-                id: note
-                placeholderText: "Descrição"
-                wrapMode: TextArea.Wrap
+            TextField {
+                Layout.alignment: Qt.AlignCenter
+                Layout.fillWidth:  true
+                id:title
+                placeholderText: "Titulo"
 
             }
+            Flickable {
+                id:flickable
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                flickableDirection: Flickable.VerticalFlick
 
-            ScrollBar.vertical: ScrollBar {
-                visible: true
+                TextArea.flickable: TextArea {
+                    id: note
+                    placeholderText: "Descrição"
+                    wrapMode: TextArea.Wrap
+
+                }
+
+                ScrollBar.vertical: ScrollBar {
+                    visible: true
+                }
+
             }
-
-        }
             Component.onCompleted: {
                 if(idNote){
                     title.text = titles
@@ -71,7 +71,7 @@ Item {
                 var data = currentDate.toLocaleDateString(Qt.locale(), Locale.ShortFormat)
                 var hora = currentDate.toLocaleTimeString(Qt.locale(), Locale.ShortFormat)
                 if(eliminated){
-                    console.log("Eliminado")
+                    console.log("Nota Removida Com Sucesso")
                     modelNota.deleteLine(idNote)
                     return
                 }

@@ -85,34 +85,34 @@ Item {
 
 
                 Button {
-                     Layout.leftMargin:25
+                    Layout.leftMargin:25
                     text: "Cancelar"
                     onClicked: stack.pop()
                 }
                 Button {
-                     Layout.leftMargin:25
+                    Layout.leftMargin:25
                     text: "Cadrastar"
-                        onClicked: {
-                            if(!texpassword.text){
-                                passworderr.visible = true
-                            }
-                            if(!texname.text){
-                                nameerr.visible = true
-                            }
-                            if(!texemail.text ){
-                                emailerr.visible = true
-                            }
-                            if((userModel.existsInDataBase(texemail.text.toString()))){
-                                console.log(texemail.text.toString())
-                                emailerr.visible = true
-                            }
-                            else if(texpassword.text && texname.text && texname.text ){
-                                let password = texpassword.text.toString()
-                                let nameS = texname.text.toString()
-                                let emailS = texemail.text.toString()
-                                 userModel.registerInTheDatabase(emailS, nameS, password)
-                                stack.pop()
-                            }
+                    onClicked: {
+                        if(!texpassword.text){
+                            passworderr.visible = true
+                        }
+                        if(!texname.text){
+                            nameerr.visible = true
+                        }
+                        if(!texemail.text ){
+                            emailerr.visible = true
+                        }
+                        if((userModel.existsInDataBase(texemail.text.toString()))){
+                            console.log(texemail.text.toString())
+                            emailerr.visible = true
+                        }
+                        else if(texpassword.text && texname.text && texname.text ){
+                            let password = texpassword.text.toString()
+                            let nameS = texname.text.toString()
+                            let emailS = texemail.text.toString()
+                            userModel.registerInTheDatabase(emailS, nameS, password)
+                            stack.pop()
+                        }
 
                     }
 

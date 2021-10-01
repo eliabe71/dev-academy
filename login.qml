@@ -34,12 +34,16 @@ Item {
 
             TextField{
                 id:email
-                text: "eliabesantos1106@gmail.com"
+
                 Layout.fillWidth : true
                 placeholderText: "Email"
+                validator : RegExpValidator { regExp: /([a-z]+[0-9A-F]*)@.[a-z]+.[a-z]+/ }
 
             }
             Label{
+                function errorEmail(){
+                    emailerror.text = "Campo Email Vazio"
+                }
                 id:emailerror
                 color:"red"
                 text: "email Não Cadastrado"
@@ -58,7 +62,7 @@ Item {
                 visible: false
             }
             CheckBox{
-              //  Layout.leftMargin: 200
+
                 id: hidepassword
                 checked: false
                 text: "Mostrar Senha"
@@ -78,7 +82,15 @@ Item {
                     let registered = userModel.existsInDataBase(email.text.toString())
                     if(!password.text){
                         passworderror.visible = true
-
+                        if(!email.text){
+                            emailerror.errorEmail()
+                            return
+                        }
+                        return
+                    }
+                    if(!email.text){
+                        emailerror.errorEmail()
+                        return
                     }
                     if(registered) {
                         email.text = ""

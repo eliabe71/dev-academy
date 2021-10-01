@@ -11,11 +11,18 @@ ToolBar {
     signal listbuttonClicked();
     signal buttonSaved();
     signal trashButtonClicked();
+    signal searchButtonClicked();
+    signal searchTextChanged(string filter);
     function offButtons(){
         search.visible = false
         magnify.visible = false
         savebutton.visible = true
         gridorlist.visible = false
+    }
+    function alterMagnify(){
+        magnify.icon.source = magnifysrc
+        search.visible = false
+        searchButtonClicked()
     }
     function onButtons(){
         savebutton.visible = false
@@ -26,17 +33,14 @@ ToolBar {
         excluir.visible = on
     }
     RowLayout{
-//        anchors.verticalCenter: root.verticalCenter
+
         spacing: 10
         anchors.fill:parent
-        Component.onCompleted: {
-            console.log("width" + root.width)
-            console.log("height" + root.height)
-        }
+
         ToolButton{
             id : buttonreturn
-           icon.source: "/icons/return.png"
-           onClicked: stack.pop()
+            icon.source: "/icons/return.png"
+            onClicked: stack.pop()
 
         }
         Rectangle{
@@ -49,16 +53,13 @@ ToolBar {
             id: search
             visible: false
             Layout.fillWidth: true
-           placeholderText: "Buscar"
+            placeholderText: "Buscar"
+            onTextChanged: {
+                searchTextChanged(search.text);
+            }
 
-         }
-//        ToolButton {
-//            id:savebutton
-//            icon.source: "/icons/save.png"
-//            visible:false
-//            text: "Salvar Nota"
-//             onClicked: stack.pop()
-//        }
+        }
+
         Image {
             id: excluir
             visible: false
@@ -87,10 +88,10 @@ ToolBar {
         }
         ToolButton{
 
-             id: magnify
-             icon.source: magnifysrc
-//             sourceSize.width: 30  ; sourceSize.height: 30
-             onClicked: {
+            id: magnify
+            icon.source: magnifysrc
+
+            onClicked: {
 
                 if(magnify.icon.source == magnifysrc){
 
@@ -102,28 +103,29 @@ ToolBar {
                 else{
                     magnify.icon.source = magnifysrc
                     search.visible = false
+                    searchButtonClicked()
                 }
-             }
+            }
 
         }
         ToolButton{
             id: gridorlist
             icon.source: buttonlistsrc
-//             sourceSize.width: 30  ; sourceSize.height: 30
+
             onClicked: {
 
-               if(gridorlist.icon.source == buttonlistsrc){
+                if(gridorlist.icon.source == buttonlistsrc){
 
-                   gridorlist.icon.source = buttongridsrc
+                    gridorlist.icon.source = buttongridsrc
 
-               }
-               else{
-                   gridorlist.icon.source = buttonlistsrc
+                }
+                else{
+                    gridorlist.icon.source = buttonlistsrc
 
-               }
-               listbuttonClicked()
+                }
+                listbuttonClicked()
             }
 
-       }
+        }
     }
 }

@@ -15,7 +15,7 @@ ApplicationWindow {
     Material.theme: Material.dark
 
     Component.onCompleted:{
-        console.log("hm" + Material.dark)
+
         stack.push('qrc:/login.qml', { 'stack' : stack })
         userModel.cancel()
     }
@@ -30,6 +30,16 @@ ApplicationWindow {
             if(stack.currentItem.name == "addnote"){
                 stack.currentItem.eliminated = true
                 stack.pop()
+            }
+        }
+        onSearchTextChanged:{
+            if(stack.currentItem.name =="homeView"){
+                stack.currentItem.filterOpacity = filter
+            }
+        }
+        onSearchButtonClicked:{
+            if(stack.currentItem.name =="homeView"){
+                stack.currentItem.filterOpacity = ""
             }
         }
     }
@@ -77,7 +87,7 @@ ApplicationWindow {
 
                 onClicked: {
 
-
+                    toolbar.alterMagnify()
                     stack.push('qrc:/addnote.qml', { 'modelNota':notadata, 'userid' :userModel.getId() ,'stack' : stack })
                 }
             }
